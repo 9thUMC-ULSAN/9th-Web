@@ -34,8 +34,6 @@ TEST: 테스트 코드 추가 및 수정
 
 <br>
 
-Copyright © Sojung Park (Bei) All rights reserved.
-
 
 ## 🍀 Members
 
