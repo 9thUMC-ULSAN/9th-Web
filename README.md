@@ -38,9 +38,6 @@ Copyright © Sojung Park (Bei) All rights reserved.
 
 
 ## 🍀 Members
-| [![텍스트](https://avatars.githubusercontent.com/u/104255055?v=4)](https://github.com/sjmd117) |
-|:---:|
-||
 
 <br>
 
