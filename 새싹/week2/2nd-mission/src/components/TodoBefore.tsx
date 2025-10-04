@@ -1,7 +1,7 @@
-import { FormEvent, useState } from 'react';
-import { TTodo } from '../types/todo';
+import { type FormEvent, useState } from 'react';
+import type { TTodo } from '../types/todo';
 
-const Todo = (): Element => {
+const TodoBefore = () => {
   const [todos, setTodos] = useState<TTodo[]>([]);
   const [doneTodos, setDoneTodos] = useState<TTodo[]>([]);
   const [input, setInput] = useState<string>('');
@@ -20,16 +20,14 @@ const Todo = (): Element => {
     }
   };
 
-  const completeTodo = (TTodo): void => {
-    setTodos((prevTodos): TTodo[] =>
-      prevTodos.filter((t): boolean => t.id !== todos.id)
-    );
+  const completeTodo = (todo: TTodo): void => {
+    setTodos((prevTodos) => prevTodos.filter((t) => t.id !== todo.id));
     setDoneTodos((prevDoneTodos): TTodo[] => [...prevDoneTodos, todo]);
   };
 
   const deleteTodo = (todo: TTodo): void => {
-    setDoneTodos((prevDoneTodo): TTodo[] =>
-      preDoneTodo.filter((t): boolean => t.id !== todo.id)
+    setDoneTodos((prevDoneTodos) =>
+      prevDoneTodos.filter((t): boolean => t.id !== todo.id)
     );
   };
 
@@ -53,7 +51,7 @@ const Todo = (): Element => {
         <div className="render-container__section">
           <h2 className="render-container__title">할 일</h2>
           <ul id="todo-list" className="render-container__list">
-            {todos.map((todo): any => (
+            {todos.map((todo) => (
               <li key={todo.id} className="render-container__item">
                 <span className="render-container__item-text">{todo.text}</span>
                 <button
@@ -71,20 +69,21 @@ const Todo = (): Element => {
         </div>
         <div className="render-container__section">
           <h2 className="render-container__title">완료</h2>
-          <ul id="todo-list" className="render-container__list">
-            <li key={DoneTodo.id} className="render-container__item">
-              <span className="render-container__item-text">고구마</span>
-              <button
-                onClick={(): void => deleteTodo(todo)}
-                style={{
-                  backgroundColor: '#dc3545',
-                }}
-                className="render-container__item-button"
-              >
-                삭제
-              </button>
-            </li>
-            ))
+          <ul id="done-list" className="render-container__list">
+            {doneTodos.map((todo) => (
+              <li key={todo.id} className="render-container__item">
+                <span className="render-container__item-text">{todo.text}</span>
+                <button
+                  onClick={() => deleteTodo(todo)}
+                  style={{
+                    backgroundColor: '#dc3545',
+                  }}
+                  className="render-container__item-button"
+                >
+                  삭제
+                </button>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
@@ -92,4 +91,4 @@ const Todo = (): Element => {
   );
 };
 
-export default Todo;
+export default TodoBefore;
