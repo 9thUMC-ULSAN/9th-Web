@@ -13,6 +13,7 @@ export default function MovieCard({ movie }: MovieCardProps): JSX.Element {
 
   return (
     <div
+      // ⭐️ 수정 부분: 경로 앞에 슬래시(/)를 다시 붙여서 최상위 경로에서 시작하도록 강제합니다.
       onClick={(): void | Promise<void> => navigate(`/movie/${movie.id}`)}
       className="relative rounded-xl shadow-lg overflow-hidden cursor-pointer
       w-44 transition-transform duration-500 hover:scale-105"

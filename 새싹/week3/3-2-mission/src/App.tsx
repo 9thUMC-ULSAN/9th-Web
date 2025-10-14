@@ -7,17 +7,20 @@ import type { JSX } from 'react';
 import MovieDetailPage from './pages/MovieDetailPage';
 
 const router = createBrowserRouter([
+  // 1. 최상위 라우트 (HomePage가 부모 역할을 하며 Outlet을 렌더링)
   {
     path: '/',
     element: <HomePage />,
     errorElement: <NotFoundPage />,
     children: [
       {
+        // ⭐️ 상대 경로 복원: 'movies/'로 시작하여 부모의 경로('/')에 이어집니다.
         path: 'movies/:category',
         element: <MoviePage />,
       },
       {
-        path: 'movies/:movieId',
+        // ⭐️ 상대 경로 복원: 'movies/'로 시작하여 부모의 경로('/')에 이어집니다.
+        path: 'movie/:movieId',
         element: <MovieDetailPage />,
       },
     ],
