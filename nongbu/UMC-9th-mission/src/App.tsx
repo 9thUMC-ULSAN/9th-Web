@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage';
 import MyPage from './pages/MyPage';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedLayout from './layout/ProtectedLayout';
+import GoogleLoginRedirecPage from './pages/GoogleLoginRedirecPage';
 
 // publicRoutes : 인증 없이 접근 가능한 라우트
 const publicRoutes: RouteObject[] = [
@@ -18,6 +19,7 @@ const publicRoutes: RouteObject[] = [
       { index: true, element: <HomePage /> },
       { path: "login", element: <LoginPage /> },
       { path: "signup", element: <SignupPage /> },
+      { path: "/v1/auth/google/callback", element: <GoogleLoginRedirecPage/>}
     ],
   },
 ];
