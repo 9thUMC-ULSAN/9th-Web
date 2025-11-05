@@ -4,7 +4,6 @@ import { useEffect, useState, type ChangeEvent } from 'react';
 interface UseFormProps<T> {
   initialValue: T;
   // 값이 올바른지 검증하는 함수
-  // vaildate 오타를 validate로 수정했습니다.
   validate: (values: T) => Record<keyof T, string>;
 }
 
@@ -25,7 +24,7 @@ function useForm<T>({ initialValue, validate }: UseFormProps<T>) {
 
   // 사용자가 입력값을 바꿀 때 실행되는 함수입니다.
   const handleChange = (name: keyof T, text: string) => {
-    // setValues 호출 시 잘못된 문법 (value: )를 제거하고 불변성을 유지합니다.
+    // setValues 호출 시 불변성을 유지합니다.
     setValues((prevValues) => ({
       ...prevValues, // 불변성 유지 (기존 값 유지)
       [name]: text,
@@ -34,7 +33,7 @@ function useForm<T>({ initialValue, validate }: UseFormProps<T>) {
 
   // 인풋에서 포커스를 잃었을 때 (blur) 실행되어 touched 상태를 업데이트합니다.
   const handleBlur = (name: keyof T) => {
-    // setTouched 호출 시 잘못된 문법 (value: )를 제거하고 불변성을 유지합니다.
+    // setTouched 호출 시 불변성을 유지합니다.
     setTouched((prevTouched) => ({
       ...prevTouched,
       [name]: true,
@@ -56,13 +55,9 @@ function useForm<T>({ initialValue, validate }: UseFormProps<T>) {
   };
 
   // value가 변경될 때마다 에러 검증 로직이 실행됩니다.
-  // useEffect 문법 오류를 수정하고, 함수 내부에 배치합니다.
   useEffect(() => {
-    // keyof T의 대소문자 오류를 수정했습니다.
     const newErrors: Record<keyof T, string> = validate(values);
     setErrors(newErrors); // 오류 메시지 업데이트
-
-    // 종속성 배열 문법 오류를 수정하고, 의존성 (validate, values)을 명확히 지정합니다.
   }, [validate, values]);
 
   // return 문을 함수 내부에 배치합니다.

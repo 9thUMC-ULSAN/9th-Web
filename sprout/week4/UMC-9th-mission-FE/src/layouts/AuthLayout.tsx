@@ -1,7 +1,8 @@
 import { Outlet, useNavigate } from 'react-router-dom';
+import type { ReactElement } from 'react';
 
 // lucide-react 대신 인라인 SVG 컴포넌트를 정의합니다. (로그인 아이콘)
-const LogInIcon = (props: { size: number; className?: string }) => (
+const LogInIcon = (props: { size: number, className?: string }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={props.size}
@@ -21,7 +22,7 @@ const LogInIcon = (props: { size: number; className?: string }) => (
 );
 
 // lucide-react 대신 인라인 SVG 컴포넌트를 정의합니다. (회원가입 아이콘)
-const UserPlusIcon = (props: { size: number; className?: string }) => (
+const UserPlusIcon = (props: { size: number, className?: string }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={props.size}
@@ -49,9 +50,8 @@ const NavButton = ({
   to: string;
   text: string;
   Icon: React.ElementType;
-}) => {
+}): ReactElement => {
   const navigate = useNavigate();
-  // 이미지에 보이는 버튼 디자인 (둥근 모서리, 배경색/글자색) 적용
   const isSignup = text === '회원가입';
 
   return (
@@ -72,13 +72,13 @@ const NavButton = ({
   );
 };
 
-const HomeLayout = () => {
+const AuthLayout = (): ReactElement => {
   return (
     // 전체 배경을 검은색으로 설정
     <div className="h-dvh flex flex-col bg-black text-white">
       {/* 네비게이션 바: 고정 높이, 검은색 배경 */}
       <nav className="h-16 flex items-center justify-between px-8 bg-black border-b border-gray-800">
-        {/* 로고 영역 - 🍿Movies🍿로 변경 */}
+        {/* 로고 영역 */}
         <div className="text-2xl font-extrabold text-red-600 tracking-wider">
           🍿Movies🍿
         </div>
@@ -103,4 +103,4 @@ const HomeLayout = () => {
   );
 };
 
-export default HomeLayout;
+export default AuthLayout;
