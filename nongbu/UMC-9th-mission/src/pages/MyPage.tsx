@@ -8,6 +8,7 @@ const MyPage = () => {
     const [data, setData] = useState<ResponseMyInfoDto | null>(null);
     const { logout } = useAuth();
     const navigate = useNavigate();
+    
     useEffect(() => {
         const getData = async () => {
             try {

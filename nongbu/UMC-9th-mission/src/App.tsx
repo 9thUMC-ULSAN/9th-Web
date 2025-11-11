@@ -45,7 +45,13 @@ const router = createBrowserRouter([
   ...publicRoutes,
   ...protectedRoutes,
 ]);
-const queryClient = new QueryClient();
+export const queryClient: QueryClient = new QueryClient({ // config:
+  defaultOptions: {
+    queries: {
+      retry: 3,
+    },
+  },
+});
 
 function App() {
   return (
@@ -54,6 +60,7 @@ function App() {
         <RouterProvider router={router}/>
       </AuthProvider>
       <ReactQueryDevtools initialIsOpen={false} />
+      {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
     </QueryClientProvider>
   );
 }

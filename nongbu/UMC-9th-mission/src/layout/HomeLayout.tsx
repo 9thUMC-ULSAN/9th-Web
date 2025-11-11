@@ -2,6 +2,7 @@ import { Outlet, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getMyInfo } from "../apis/auth";
 import type { ResponseMyInfoDto } from "../types/auth";
+import Footer from "../components/Footer";
 
 export default function HomeLayout() {
   const [user, setUser] = useState<ResponseMyInfoDto | null>(null);
@@ -41,7 +42,7 @@ export default function HomeLayout() {
         <Outlet />
       </main>
 
-      <footer className="p-4 bg-gray-300 text-center">푸터</footer>
+      <Footer />
     </div>
   );
 }
