@@ -10,6 +10,7 @@ import ProtectedLayout from './layout/ProtectedLayout';
 import GoogleLoginRedirecPage from './pages/GoogleLoginRedirecPage';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import LpDetailPage from './pages/LpDetailPage';
 
 // publicRoutes : 인증 없이 접근 가능한 라우트
 const publicRoutes: RouteObject[] = [
@@ -21,7 +22,8 @@ const publicRoutes: RouteObject[] = [
       { index: true, element: <HomePage /> },
       { path: "login", element: <LoginPage /> },
       { path: "signup", element: <SignupPage /> },
-      { path: "/v1/auth/google/callback", element: <GoogleLoginRedirecPage/>}
+      { path: "/v1/auth/google/callback", element: <GoogleLoginRedirecPage/>},
+      { path: "lps/:lpId", element: <LpDetailPage /> },
     ],
   },
 ];

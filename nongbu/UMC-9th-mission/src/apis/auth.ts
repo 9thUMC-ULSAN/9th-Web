@@ -1,4 +1,3 @@
-import axios from "axios";
 import { LOCAL_STORAGE_KEY } from "../constants/key";
 import type { RequestSigninDto, RequestSignupDto, ResponseMyInfoDto } from "../types/auth";
 import { axiosInstance } from "./axios"; // axiosInstance가 설정되어 있다고 가정

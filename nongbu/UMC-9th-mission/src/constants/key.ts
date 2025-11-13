@@ -3,6 +3,8 @@ export const LOCAL_STORAGE_KEY  = {
     refreshToken : "refreshToken",
 };
 
-export const QUERY_KEY: { lps: string } = {
+export const QUERY_KEY: {
+    myInfo: any; lps: string 
+} = {
     lps: "lps",
 };
