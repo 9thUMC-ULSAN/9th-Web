@@ -6,7 +6,7 @@ function useGetMyInfo(accessToken : string | null) {
   return useQuery({
     queryKey: [QUERY_KEY.myInfo],
     queryFn: getMyInfo,
-    enabled: !accessToken,
+    enabled: !!accessToken,
   });
 }
 
