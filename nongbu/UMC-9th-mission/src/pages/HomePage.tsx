@@ -2,22 +2,24 @@ import { PAGINATION_ORDER } from "../enums/common.ts";
 import useGetInfiniteLpList from "../hooks/queries/useGetInfiniteLpList.tsx";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import type { Lp, ResponseLpListDto } from "../types/lp.ts";
 import LpCard from "../components/LpCard/LpCard.tsx";
 import LpCardSkeletonList from "../components/LpCard/LpCardSkeletonList.tsx";
 import useDebounce from "../hooks/useDebounce.ts";
+import useThrottle from "../hooks/useThrottle.ts";
+
 
 const HomePage = () => { 
   // 검색어 상태 관리 (초기값 빈 문자열)
 const [search, setSearch] = useState<string>("");
 
 // search 값이 10000ms (10초) 동안 변경되지 않으면 debouncedValue에 반영
-const debouncedValue: string = useDebounce(search, 3000);
+const debouncedValue: string = useDebounce(search, 300);
    // initialState:
   // const { data, isPending, isError } = useGetLpList({ 
   //   search,
   //   limit: 50,
   // });
+  
   const { 
     data: lps, 
     isFetching, 
@@ -25,8 +27,7 @@ const debouncedValue: string = useDebounce(search, 3000);
     isPending, 
     fetchNextPage, 
     isError 
-  } = useGetInfiniteLpList(10, search, PAGINATION_ORDER.desc);
-
+  } = useGetInfiniteLpList(10, debouncedValue, PAGINATION_ORDER.desc);
   // ref, inView
   // ref -> 특정한 HTML 요소를 감시할 수 있다.
   // inView -> 그 요소가 화면에 보이면 true
@@ -34,22 +35,31 @@ const debouncedValue: string = useDebounce(search, 3000);
   const { ref, inView } = useInView ({
       threshold: 0,
   });
-  useEffect( () => {
-    if (inView) {
-      !isFetching && hasNextPage && fetchNextPage();
+  
+  const [loadTrigger, setLoadTrigger] = useState(0);
+
+  useEffect(() => {
+    // 화면에 보이고, 로딩 중 아님, 다음 페이지 있음 -> 트리거 숫자 증가!
+    if (inView && !isFetching && hasNextPage) {
+      setLoadTrigger((prev) => prev + 1);
     }
-  }, [inView, isFetching, hasNextPage, fetchNextPage]);
+  }, [inView, isFetching, hasNextPage]);
+  
+  const throttledTrigger = useThrottle(loadTrigger, 2000);
+
+  useEffect(() => {
+    // 0이 아닐 때만 실행 (초기 렌더링 방지)
+    if (throttledTrigger > 0) {
+      fetchNextPage();
+    }
+  }, [throttledTrigger, fetchNextPage]);
+
+
 
   return (
     <div className="container mx-auto px-4 py-6">
-      
-      {/* === 🔍 스타일리시한 검색창 영역 === */}
       <div className="relative mb-8 max-w-xl mx-auto">
-        {/* 주의: 여기에 실제 돋보기 아이콘 컴포넌트를 넣어주세요 (예: lucide-react의 <Search />) 
-          input의 pl-10 클래스가 아이콘 공간을 확보해 줍니다.
-        */}
         <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-          {/* Search Icon Component (🔍) */}
         </div>
 
         <input
@@ -60,7 +70,6 @@ const debouncedValue: string = useDebounce(search, 3000);
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
-      {/* === 🔍 검색창 영역 끝 === */}
       
       <div
         className={
