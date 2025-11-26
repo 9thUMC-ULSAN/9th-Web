@@ -34,7 +34,7 @@ const publicRoutes: RouteObject[] = [
 const protectedRoutes: RouteObject[] = [
   {
     path: "/",
-    element: <ProtectedLayout />,
+    element: <><HomeLayout/><ProtectedLayout /></>, 
     errorElement: <NotFoundPage />,
     children: [
       {
